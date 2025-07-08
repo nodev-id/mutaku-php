@@ -1,0 +1,35 @@
+{
+    "name": "nodev/mutaku",
+    "description": "terserah",
+    "type": "library",
+    "license": "MIT",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Fieza Ghifari",
+            "email": "fiezarausyan@gmail.com"
+        },
+        {
+            "name": "Dio Rizqi",
+            "email": "rizqiii.dio@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-openssl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nodev\\Mutaku\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Nodev\\Mutaku\\MutakuServiceProvider"
+            ]
+        }
+    }
+}
