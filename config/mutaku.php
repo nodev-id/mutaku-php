@@ -19,15 +19,4 @@ return [
     |
     */
     'accountUsername' => env('ORDERKUOTA_ACCOUNT_USERNAME', ''),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Orderkuota server url
-    |--------------------------------------------------------------------------
-    |
-    | server Orderkuota.
-    | default: https://app.orderkuota.com/api
-    |
-    */
-    'serverUrl' => env('ORDERKUOTA_SERVER_URL', 'https://app.orderkuota.com/api'),
 ];

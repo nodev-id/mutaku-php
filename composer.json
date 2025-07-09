@@ -3,7 +3,7 @@
     "description": "Package for getting mutations from OrderKuota QRIS Transactions (Unofficial)",
     "type": "library",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "authors": [
         {
             "name": "Fieza Ghifari",
@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "php": ">=8.0",
+        "php": ">=7.4",
         "ext-curl": "*",
         "ext-json": "*",
         "ext-openssl": "*",

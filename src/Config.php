@@ -27,9 +27,9 @@ class Config
     /**
      * Orderkuota API URL
      * 
-     * @static
+     * Default: https://app.orderkuota.com/api
      */
-    public static $serverUrl;
+    const TRANSACTION_BASE_URL = 'https://app.orderkuota.com/api';
 
     /**
      * Get baseUrl
@@ -38,7 +38,7 @@ class Config
      */
     public static function getBaseUrl()
     {
-        return self::$serverUrl . "/v2/get";
+        return static::TRANSACTION_BASE_URL . "/v2/get";
     }
 
     /**
@@ -74,11 +74,9 @@ class Config
     {
         if ($env) {
             static::$authToken = $config['ORDERKUOTA_AUTH_TOKEN'] ?? null;
-            static::$serverUrl = $config['ORDERKUOTA_SERVER_URL'] ?? null;
             static::$accountUsername = $config['ORDERKUOTA_ACCOUNT_USERNAME'] ?? null;
         } else {
             static::$authToken = $config['authToken'] ?? null;
-            static::$serverUrl = $config['serverUrl'] ?? null;
             static::$accountUsername = $config['accountUsername'] ?? null;
         }
     }
