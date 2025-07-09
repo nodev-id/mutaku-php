@@ -7,19 +7,7 @@ use Nodev\Mutaku\ApiRequestor;
 use Nodev\Mutaku\Config;
 
 class Core
-{
-    /**
-     * Ensure configuration is loaded
-     * 
-     * @return void
-     */
-    private static function ensureConfigLoaded()
-    {
-        if (!Config::$authToken || !Config::$accountUsername || !Config::$serverUrl) {
-            Config::load(config('mutaku') ?? []);
-        }
-    }
-
+{ 
     /**
      * Validate date format (d-m-Y)
      * 
@@ -49,10 +37,9 @@ class Core
      */
     public static function getMutations($fromDate = null, $toDate = null, $page = 1)
     {
-        self::ensureConfigLoaded();
         $url = Config::getBaseUrl();
         
-        $fromDate = $fromDate ?: date('Y-m-d', strtotime('-30 days'));
+        $fromDate = $fromDate ?: date('d-m-Y', strtotime('-30 days'));
         $toDate = $toDate ?: date('d-m-Y');
 
         self::validateDate($fromDate);
@@ -101,7 +88,6 @@ class Core
      */
     public static function getImage()
     {
-        self::ensureConfigLoaded();
         $url = Config::getBaseUrl();
 
         $data_hash = [
@@ -143,9 +129,8 @@ class Core
      */
     public static function getBalance()
     {
-        self::ensureConfigLoaded();
         $url = Config::getBaseUrl();
-        
+
         $data_hash = [
             'requests' => [
                 0 => 'account'

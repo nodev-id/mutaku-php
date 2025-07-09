@@ -8,17 +8,12 @@ class MutakuServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        // publish config
+        // publish config file
         $this->publishes([
             __DIR__ . '/../config/mutaku.php' => config_path('mutaku.php'),
         ], 'mutaku-config');
         
-        // set ke static class config
+        // set to static class config
         Config::load(config('mutaku') ?? []);
-    }
-
-    public function register()
-    {
-        //
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Nodev\Mutaku;
 
+use Dotenv\Dotenv;
+
 /**
  * Orderkuota Configuration
  */
@@ -23,20 +25,11 @@ class Config
     public static $accountUsername;
 
     /**
-     * Default options for every request
-     * 
-     * @static
-     */
-    public static $curlOptions = array();
-
-    /**
      * Orderkuota API URL
      * 
      * @static
      */
     public static $serverUrl;
-
-    const TRANSACTION_BASE_URL = 'https://app.orderkuota.com/api';
 
     /**
      * Get baseUrl
@@ -45,13 +38,28 @@ class Config
      */
     public static function getBaseUrl()
     {
-        return Config::$serverUrl . "/v2/get";
+        return self::$serverUrl . "/v2/get";
+    }
+
+    /**
+     * Load environment variables from .env file
+     * 
+     * @param string|null $path Path to the directory containing the .env file (default: current directory)
+     * @return void
+     */
+    public static function initialize($path = null)
+    {
+        $path = $path ?: dirname(__DIR__, 1);
+        $dotenv = Dotenv::createImmutable($path);
+        $dotenv->load();
+
+        static::load($_ENV);
     }
 
     public static function load(array $config)
     {
-        self::$authToken = $config['authToken'] ?? null;
-        self::$serverUrl = $config['serverUrl'] ?? null;
-        self::$accountUsername = $config['accountUsername'] ?? null;
+        static::$authToken = $config['authToken'] ?? null;
+        static::$serverUrl = $config['serverUrl'] ?? null;
+        static::$accountUsername = $config['accountUsername'] ?? null;
     }
 }
