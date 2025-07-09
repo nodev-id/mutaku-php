@@ -42,6 +42,13 @@ class Config
     }
 
     /**
+     * Default options for every request
+     * 
+     * @static
+     */
+    public static $curlOptions = array();
+
+    /**
      * Load environment variables from .env file
      * 
      * @param string|null $path Path to the directory containing the .env file (default: current directory)
@@ -53,13 +60,26 @@ class Config
         $dotenv = Dotenv::createImmutable($path);
         $dotenv->load();
 
-        static::load($_ENV);
+        static::load($_ENV, true);
     }
 
-    public static function load(array $config)
+    /**
+     * Load configuration from an array
+     * 
+     * @param array $config Configuration array
+     * @param bool $env If true, load from environment variables (default: false)
+     * @return void
+     */
+    public static function load(array $config, bool $env = false)
     {
-        static::$authToken = $config['authToken'] ?? null;
-        static::$serverUrl = $config['serverUrl'] ?? null;
-        static::$accountUsername = $config['accountUsername'] ?? null;
+        if ($env) {
+            static::$authToken = $config['ORDERKUOTA_AUTH_TOKEN'] ?? null;
+            static::$serverUrl = $config['ORDERKUOTA_SERVER_URL'] ?? null;
+            static::$accountUsername = $config['ORDERKUOTA_ACCOUNT_USERNAME'] ?? null;
+        } else {
+            static::$authToken = $config['authToken'] ?? null;
+            static::$serverUrl = $config['serverUrl'] ?? null;
+            static::$accountUsername = $config['accountUsername'] ?? null;
+        }
     }
 }
