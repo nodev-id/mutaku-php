@@ -17,6 +17,7 @@ class Core
      * @param string|null $fromDate Format: d-m-Y (default: 30 days ago)
      * @param string|null $toDate Format: d-m-Y (default: today)
      * @param int $page Page number for pagination (default: 1)
+     * @param bool $filterOut Whether to display outgoing or incoming transactions (default: false)
      * @return array
      * @throws Exception
      */
@@ -59,6 +60,7 @@ class Core
             return [
                 'error' => false,
                 'date' => $fromDate . ' to ' . $toDate,
+                'filter_out' => $filterOut,
                 'data' => $responseArray,
             ];
         } catch (Exception $e) {
@@ -72,7 +74,7 @@ class Core
     /**
      * Get QRIS image from API
      * 
-     * @return string
+     * @return array
      * @throws Exception
      */
     public static function getImage()
@@ -113,7 +115,7 @@ class Core
     /**
      * Get balance from API
      * 
-     * @return string
+     * @return array
      * @throws Exception
      */
     public static function getBalance()

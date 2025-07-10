@@ -1,6 +1,14 @@
 # Tutorial Mendapatkan Auth Token
 
 Package PHP untuk mengambil data mutasi, saldo, dan gambar QRIS dari OrderKuota secara mudah (Non-Resmi). Mendukung **Laravel** dan **PHP Native**.
+## Daftar Isi
+
+- [1. Download Aplikasi Reqable di Play Store](#1-download-aplikasi-reqable-di-play-store)
+  - [Accept Agreement](#accept-agreement)
+- [2. Pilih Standalone Mode](#2-pilih-standalone-mode)
+- [3. Export Certificate](#3-export-certificate)
+- [4. Install/Pasang Certificate](#4-installpasang-certificate)
+- [5. Mengambil Auth Token](#5-mengambil-auth-token)
 
 ### 1. Download Aplikasi Reqable di Play Store
 
