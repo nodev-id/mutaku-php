@@ -1,4 +1,4 @@
-# Mutaku - OrderKuota QRIS API Package
+# Mutaku - Mutasi Qris Orderkuota
 
 ![PHP Version](https://img.shields.io/badge/php-%3E%3D7.4-8892BF.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
@@ -24,6 +24,10 @@ Package PHP untuk mengambil data mutasi, saldo, dan gambar QRIS dari OrderKuota 
 - ext-json
 - ext-openssl
 - vlucas/phpdotenv
+
+## 🔑 Cara Mendapatkan Auth Token
+
+Untuk mendapatkan Auth Token, silakan mengikuti [tutorial berikut](TUTORIAL.md).
 
 ## 📦 Instalasi
 
@@ -71,14 +75,6 @@ Config::load([
     'accountUsername' => 'your_username_here',
 ]);
 ```
-
-## 🔑 Cara Mendapatkan Auth Token
-
-1. Login ke aplikasi OrderKuota
-2. Buka menu **Settings** atau **API**
-3. Generate atau copy **Auth Token**
-4. Copy **Username** akun Anda
-5. Masukkan ke environment variables
 
 ## 🚀 Penggunaan
 
@@ -171,19 +167,21 @@ Semua method mengembalikan array dengan format yang konsisten:
 
 ### 1. "Invalid date format"
 
+Pastikan format tanggal benar (d-m-Y)
+
 ```php
-// Pastikan format tanggal benar (d-m-Y)
 $result = Core::getMutations('31-12-2024', '01-01-2025'); // ✅
 ```
 
 ### 2. "Config not loaded"
 
-```php
-// Untuk PHP Native, pastikan initialize config
-Config::initialize();
+Untuk PHP Native, pastikan initialize config
 
-// Untuk Laravel, pastikan telah set environment variables
+```php
+Config::initialize();
 ```
+
+> **Untuk Laravel, pastikan telah set environment variables**
 
 <!-- ### 3. "CURL Error"
 ```php
@@ -197,6 +195,11 @@ Config::initialize();
 // Check environment variables
 ``` -->
 
+## 🐞 Lapor Issues
+
+Jika Anda menemukan bug, masalah, atau memiliki saran fitur, silakan buat [issue baru di GitHub](https://github.com/nodev-id/mutaku-php/issues). Sertakan detail troubleshooting yang telah dilakukan, pesan error, dan environment (native/laravel & versi) yang digunakan agar kami dapat membantu lebih cepat.
+
+
 ## 📝 License
 
 Package ini menggunakan [MIT License](LICENSE).
@@ -207,4 +210,4 @@ Package ini **tidak resmi** dan tidak berafiliasi dengan OrderKuota. Gunakan den
 
 ---
 
-**Made by [Fieza Ghifari](https://github.com/Glaezz) & [Dio Rizqi](https://github.com/diorizqi404)**
+**Di coding oleh [Fieza Ghifari](https://github.com/Glaezz) & [Dio Rizqi](https://github.com/diorizqi404)**
