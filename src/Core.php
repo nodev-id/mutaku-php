@@ -5,26 +5,11 @@ namespace Nodev\Mutaku;
 use Exception;
 use Nodev\Mutaku\ApiRequestor;
 use Nodev\Mutaku\Config;
+use Nodev\Mutaku\Helper;
 
 class Core
-{ 
-    /**
-     * Validate date format (d-m-Y)
-     * 
-     * @param string $date
-     * @return bool
-     */
-    private static function validateDate($date)
-    {
-        $d = \DateTime::createFromFormat('d-m-Y', $date);
-        $formatDate =  $d && $d->format('d-m-Y') === $date;
+{
 
-        if (!$formatDate) {
-            throw new Exception("Invalid date format. Use 'd-m-Y' format (e.g., 31-12-2024).");
-        }
-
-        return $formatDate;
-    }
 
     /**
      * Get mutation data from API
@@ -35,15 +20,15 @@ class Core
      * @return array
      * @throws Exception
      */
-    public static function getMutations($fromDate = null, $toDate = null, $page = 1)
+    public static function getMutations($fromDate = null, $toDate = null, $page = 1, $filterOut = false)
     {
         $url = Config::getBaseUrl();
-        
+
         $fromDate = $fromDate ?: date('d-m-Y', strtotime('-30 days'));
         $toDate = $toDate ?: date('d-m-Y');
 
-        self::validateDate($fromDate);
-        self::validateDate($toDate);
+        Helper::validateDate($fromDate);
+        Helper::validateDate($toDate);
 
         $data_hash = [
             'requests' => [
@@ -65,6 +50,10 @@ class Core
 
             if (isset($responseArray['success']) && $responseArray['success'] !== true) {
                 throw new Exception($responseArray['message'] ?? 'Unknown error occurred');
+            }
+
+            if ($filterOut) {
+                $responseArray['qris_history']['results'] = Helper::filterOut($responseArray['qris_history']['results']);
             }
 
             return [
