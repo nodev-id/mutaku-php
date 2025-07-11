@@ -21,8 +21,13 @@ class Core
      * @return array
      * @throws Exception
      */
-    public static function getMutations($fromDate = null, $toDate = null, $page = 1, $filterOut = false)
+    public static function getMutations(array $options = [])
     {
+        $fromDate = $options['fromDate'] ?? null;
+        $toDate = $options['toDate'] ?? null;
+        $page = $options['page'] ?? 1;
+        $filterOut = $options['filterOut'] ?? false;
+
         $url = Config::getBaseUrl();
 
         $fromDate = $fromDate ?: date('d-m-Y', strtotime('-30 days'));

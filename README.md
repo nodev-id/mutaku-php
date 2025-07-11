@@ -87,26 +87,35 @@ Config::load([
 
 ### 1. Ambil Data Mutasi
 
+Method `Core::getMutations()` menerima parameter berikut secara berurutan:
+
+1. **fromDate** 
+  Tanggal mulai filter mutasi (default: 30 hari terakhir).
+2. **toDate** 
+  Tanggal akhir filter mutasi (default: hari ini).
+3. **page** 
+  Untuk pagination, default halaman 1.
+4. **filterOut** 
+  Jika `true`, hanya menampilkan transaksi masuk (IN). Jika `false` atau tidak diisi, menampilkan semua status transaksi.
+
+> Semua parameter bersifat opsional, Anda tidak perlu mengisi semuanya.
+
+Contoh penggunaan:
+
 ```php
 use Nodev\Mutaku\Core;
 
-// Ambil mutasi 30 hari terakhir (default)
-$result = Core::getMutations();
+$result = Core::getMutations([
+  'fromDate' => '01-01-2025', // Tanggal awal mutasi
+  'toDate' => '31-01-2025', // Tanggal akhir mutasi
+  'page' => 1, // Page
+  'filterOut' => true // Hanya menampilkan status transaksi IN
+]);
 
-// Ambil mutasi dengan tanggal tertentu
-$result = Core::getMutations('01-01-2025', '31-01-2025');
-
-// Ambil mutasi dengan pagination
-$result = Core::getMutations('01-01-2025', '31-01-2025', 2); // page 2
-
-// Ambil hanya mutasi status IN
-$result = Core::getMutations('01-01-2025', '31-01-2025', 2, true);
-
-// Response
 if ($result['error']) {
-    echo "Error: " . $result['message'];
+   echo "Error: " . $result['message'];
 } else {
-    echo "Data: " . json_encode($result['data']);
+   echo "Data: " . json_encode($result['data']);
 }
 ```
 
@@ -168,6 +177,8 @@ Semua method mengembalikan array dengan format yang konsisten:
 
 #### 1.  Get Mutations
 
+**All Transaction**
+
 ```json
 {
   "error": false,
@@ -195,6 +206,41 @@ Semua method mengembalikan array dengan format yang konsisten:
             "logo": "https://app.orderkuota.com/assets/qris/orderkuota.png"
           }
         },
+        {
+          "id": 156XXXXXX,
+          "debet": "0",
+          "kredit": "1.000",
+          "saldo_akhir": "2.710",
+          "keterangan": "NOBU / JOHN DOE      ",
+          "tanggal": "08/07/2025 22:33",
+          "status": "IN",
+          "fee": "",
+          "brand": {
+            "name": "BCA",
+            "logo": "https://app.orderkuota.com/assets/qris/bca.png"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+**IN Transaction (filterOut = true)
+
+```json
+{
+  "error": false,
+  "date": "10-06-2025 to 10-07-2025",
+  "filter_out": false,
+  "data": {
+    "success": true,
+    "qris_history": {
+      "success": true,
+      "total": 2,
+      "page": 1,
+      "pages": 1,
+      "results": [
         {
           "id": 156XXXXXX,
           "debet": "0",
